@@ -48,30 +48,73 @@ clearBtn.addEventListener("click", function () {
   reset();
 });
 
+const endGame = () => {
+    console.log('win')
+    for (let index = 0; index < boxList.length; index++) {
+      const element = boxList[index];
+        element.classList.add('not-allowed')
+    }
+  
+}
+const checkWin = (i) => {
+  console.log(i)
+  if ((boxValue[0] == boxValue[1]) && (boxValue[1] == boxValue[2]) && boxValue[0] != '0') {
+    console.log('win')
+    endGame()
+  }
+   else if ((boxValue[0] == boxValue[3]) && (boxValue[3] == boxValue[6] && boxValue[0] != '0')
+  ) {
+    console.log('win')
+     endGame()
+  }
+  else if (
+    (boxValue[0] == boxValue[4]) && (boxValue[4] == boxValue[8] && boxValue[0] != '0')
+  ) {
+    console.log('win')
+     endGame()
+  }
+  else if ((boxValue[1] == boxValue[4]) && (boxValue[4] == boxValue[7] && boxValue[1] != '0')
+  ) {
+    console.log('win')
+     endGame()
+  }
+  else if (
+    (boxValue[2] == boxValue[4]) && (boxValue[4] == boxValue[6]) && boxValue[2] != '0') {
+      console.log('win')
+     
+    endGame()
+  }
+  else if (
+    (boxValue[2] == boxValue[5]) && (boxValue[5] == boxValue[8]) && boxValue[2] != '0') {
+      console.log('win')
+     
+    endGame()
+  }
+  else if (
+    (boxValue[3] == boxValue[4]) && (boxValue[4] == boxValue[5]) && boxValue[3] != '0') {
+      console.log('win')
+     
+    endGame()
+  }
+  else if (
+    (boxValue[6] == boxValue[7]) && (boxValue[7] == boxValue[8]) && boxValue[6] != '0') {
+      console.log('win')
+    
+    endGame()
+  }
+  else {
+    opponentPlay(i);
+  }
+}
+
 for (let i = 0; i < boxList.length; i++) {
   boxList[i].addEventListener("click", function () {
     if (boxList[i].innerText === "") {
-      //   body.style.pointerEvents = "none";
       boxList[i].innerText = "X";
       boxList[i].classList.add("not-allowed");
+      boxList[i].style.color = '#19a7ce'
       boxValue[i] = "X";
-      opponentPlay(i);
-      //   body.style.pointerEvents = "auto";
-
-      if (
-        (boxValue[0] === boxValue[1]) == (boxValue[1] === boxValue[2]) ||
-        (boxValue[0] === boxValue[3]) == (boxValue[3] === boxValue[6]) ||
-        (boxValue[0] === boxValue[4]) == (boxValue[4] === boxValue[8]) ||
-        (boxValue[1] === boxValue[4]) == (boxValue[4] === boxValue[7]) ||
-        (boxValue[2] === boxValue[4]) == (boxValue[4] === boxValue[6]) ||
-        (boxValue[2] === boxValue[5]) == (boxValue[5] === boxValue[8]) ||
-        (boxValue[3] === boxValue[4]) == (boxValue[4] === boxValue[5]) ||
-        (boxValue[6] === boxValue[7]) == (boxValue[7] === boxValue[8])
-      ) {
-        console.log("win");
-      } else {
-        console.log("wait");
-      }
+      checkWin(i)
     }
   });
 }
@@ -282,6 +325,7 @@ const protectGoal = (first, second) => {
       boxValue[second] = "O";
       boxList[second].innerText = "O";
       boxList[second].classList.add("not-allowed");
+      boxList[second].style.color = '#7149c6';
       return "yes";
     }
   }
@@ -298,6 +342,7 @@ const randomSelect = (i) => {
       boxValue[result] = "O";
       boxList[result].innerText = "O";
       boxList[result].classList.add("not-allowed");
+      boxList[result].style.color = '#7149c6';
       return;
     }
   }
