@@ -46,8 +46,8 @@ body {
   gap: 10px;
 }
 #timer .body .big_text {
-  font-size: 22px;
-  width: 20px;
+  font-size: 32px;
+  min-width: 50px;
   display: inline-block;
   text-align: right;
 }
@@ -98,12 +98,19 @@ body {
   grid-template-columns: repeat(3, 1fr);
   padding: 0.7rem;
 }
-.main_container .content div {
+.main_container .content .box {
   background: white;
   display: flex;
+  height: 100%;
+  min-height: 120px;
   justify-content: center;
   align-items: center;
   border: 3px solid var(--red);
+  text-align: center;
+  font-size: 50px;
+  font-weight: 800;
+  display: none;
+  margin-top: auto;
 }
 /* .main_container .content div:nth-child(1) {
   border-radius: 8px 0px 0px 0px;
@@ -152,4 +159,9 @@ body {
 
 #clear_btn {
   background-color: var(--blue) !important;
+}
+
+.not-allowed {
+  /* pointer-events: none !important; */
+  cursor: not-allowed !important;
 }
