@@ -23,7 +23,7 @@ function reset() {
   hoursField.innerText = 0;
   minutesField.innerText = 0;
   secondsField.innerText = 0;
-  time = 0;
+  time = -1;
   for (let i = 0; i < boxList.length; i++) {
     boxList[i].innerText = "";
     boxList[i].classList.remove("not-allowed");
@@ -31,7 +31,7 @@ function reset() {
   }
   boxValue = ["0", "0", "0", "0", "0", "0", "0", "0", "0"];
   result = "";
-  resultDiv.style.display="none"
+  resultDiv.style.display = "none";
 }
 restartBtn.addEventListener("click", function () {
   for (let i = 0; i < boxList.length; i++) {
@@ -73,6 +73,7 @@ const endGame = (one, two, three) => {
       }
     }
   }
+  time = -1;
   resultDiv.style.display = "flex";
   resultTitle.innerText = result === "X" ? "You Win!" : "Your opponent won!";
   clearInterval(timeTravel);
@@ -147,7 +148,10 @@ for (let i = 0; i < boxList.length; i++) {
       boxValue[i] = "X";
       checkWin();
       if (result === "") {
-        opponentPlay(i);
+        const give = computerMakeGoal();
+        if (give === false) {
+          opponentPlay(i);
+        }
         checkWin();
       }
     }
@@ -377,4 +381,45 @@ const randomSelect = (i) => {
       return;
     }
   }
+};
+const computerMakeGoal = () => {
+  const checkList = [
+    { data: [0, 1, 2] },
+    { data: [0, 3, 6] },
+    { data: [0, 4, 8] },
+    { data: [1, 4, 7] },
+    { data: [2, 4, 6] },
+    { data: [2, 5, 8] },
+    { data: [3, 4, 5] },
+    { data: [6, 7, 8] },
+  ];
+  for (let index = 0; index < checkList.length; index++) {
+    const element = checkList[index];
+    if (checkComputerCanMakeGoal(element?.data) === true) {
+      return true;
+    }
+  }
+  return false;
+};
+
+const checkComputerCanMakeGoal = (pArray) => {
+  const valueArray = [
+    boxValue[pArray[0]],
+    boxValue[pArray[1]],
+    boxValue[pArray[2]],
+  ];
+
+  const foundComputerSymbol = valueArray.filter((value) => value === "O");
+  const foundEmptySymbol = valueArray.filter((value) => value === "0");
+
+  if (foundComputerSymbol.length === 2 && foundEmptySymbol.length === 1) {
+    let index = pArray[valueArray.indexOf("0")];
+    boxValue[index] = "O";
+    boxList[index].innerText = "O";
+    boxList[index].classList.add("not-allowed");
+    boxList[index].style.color = "#7149c6";
+    return true;
+  }
+
+  return false;
 };
