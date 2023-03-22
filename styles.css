@@ -124,6 +124,17 @@ body {
 .main_container .content div:nth-child(9) {
   border-radius: 0px 0px 8px 0px;
 } */
+.main_container #result {
+  text-align: center;
+  padding: 8px auto;
+  color: var(--white);
+  border-top: 1px solid var(--brown);
+  background-color: var(--red);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  display: none;
+}
 
 .main_container .content div:nth-child(2),
 .main_container .content div:nth-child(5),
