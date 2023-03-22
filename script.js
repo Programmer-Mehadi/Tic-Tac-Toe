@@ -19,15 +19,16 @@ const setTime = (time) => {
   secondsField.innerText = seconds;
 };
 
-function reset() {
+function reset(state) {
   hoursField.innerText = 0;
   minutesField.innerText = 0;
   secondsField.innerText = 0;
   time = -1;
   for (let i = 0; i < boxList.length; i++) {
-    boxList[i].innerText = "";
+    if (state === "restart") {
+      boxList[i].style.display = "flex";
+    }
     boxList[i].classList.remove("not-allowed");
-    boxList[i].style.backgroundColor = "white";
   }
   boxValue = ["0", "0", "0", "0", "0", "0", "0", "0", "0"];
   result = "";
@@ -36,26 +37,22 @@ function reset() {
 restartBtn.addEventListener("click", function () {
   for (let i = 0; i < boxList.length; i++) {
     boxList[i].style.display = "flex";
+    boxList[i].style.color = "white";
+    boxList[i].style.backgroundColor = "white";
+    boxList[i].innerText = "X";
   }
-  if (time > 0) {
-    reset();
-    timeTravel = setInterval(() => {
-      time += 1;
-      setTime(time);
-    }, 1000);
-  } else {
-    timeTravel = setInterval(() => {
-      time += 1;
-      setTime(time);
-    }, 1000);
-  }
+  reset("restart");
+  timeTravel = setInterval(() => {
+    time += 1;
+    setTime(time);
+  }, 1000);
 });
 clearBtn.addEventListener("click", function () {
   for (let i = 0; i < boxList.length; i++) {
     boxList[i].style.display = "none";
   }
   clearInterval(timeTravel);
-  reset();
+  reset("clear");
 });
 
 const endGame = (one, two, three) => {
@@ -153,6 +150,10 @@ for (let i = 0; i < boxList.length; i++) {
           opponentPlay(i);
         }
         checkWin();
+        if (boxValue.filter((value) => value === "0").length === 0) {
+          resultDiv.style.display = "flex";
+          resultTitle.innerText = "Match Draw!";
+        }
       }
     }
   });
@@ -408,7 +409,6 @@ const checkComputerCanMakeGoal = (pArray) => {
     boxValue[pArray[1]],
     boxValue[pArray[2]],
   ];
-
   const foundComputerSymbol = valueArray.filter((value) => value === "O");
   const foundEmptySymbol = valueArray.filter((value) => value === "0");
 

@@ -152,7 +152,9 @@ body {
 .main_container .footer {
   display: flex;
   justify-content: center;
+  flex-wrap: wrap;
   gap: 50px;
+  row-gap: 20px;
   padding: 20px 80px;
   border-top: 2px solid var(--brown);
   background-color: var(--green-light);
@@ -167,6 +169,10 @@ body {
   border: 1px solid var(--beige);
   font-size: 16px;
   cursor: pointer;
+  width: 180px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 #clear_btn {
